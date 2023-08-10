@@ -3,16 +3,16 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no" />
-    <title>Geodata AS - Demo</title>
+    <title>Geodata AS - Mapchat</title>
     <link rel="icon" type="image/png" href="./images/geodata-16x16.png" sizes="16x16">
     <link rel="icon" type="image/png" href="./images/geodata-32x32.png" sizes="32x32">
     <link rel="icon" type="image/png" href="./images/geodata-96x96.png" sizes="96x96">
 
-    <script src="https://js.arcgis.com/calcite-components/1.0.7/calcite.esm.js" type="module"></script>
-    <link rel="stylesheet" href="https://js.arcgis.com/calcite-components/1.0.7/calcite.css" />
+    <script src="https://js.arcgis.com/calcite-components/1.4.3/calcite.esm.js" type="module"></script>
+    <link rel="stylesheet" href="https://js.arcgis.com/calcite-components/1.4.3/calcite.css" />
     
-    <link id="jsapi-theme-light" rel="stylesheet" href="https://js.arcgis.com/4.26/@arcgis/core/assets/esri/themes/light/main.css" disabled>
-    <link id="jsapi-theme-dark" rel="stylesheet" href="https://js.arcgis.com/4.26/@arcgis/core/assets/esri/themes/dark/main.css" />
+    <link id="jsapi-theme-light" rel="stylesheet" href="https://js.arcgis.com/4.27/@arcgis/core/assets/esri/themes/light/main.css" disabled>
+    <link id="jsapi-theme-dark" rel="stylesheet" href="https://js.arcgis.com/4.27/@arcgis/core/assets/esri/themes/dark/main.css" />
   
     <link rel="stylesheet" href="./css/main.css" />
   </head>
@@ -21,6 +21,7 @@
 
       <calcite-shell content-behind>
         <div id="title-toolbar" slot="header" class="flex-row">
+          <img id="header-logo" src="./images/mapchat_logo.png">
           <h2 id="header-title"></h2>
           <div id="signin"></div>
           <div id="theme-switcher">
@@ -42,7 +43,7 @@
             <calcite-action data-action-id="legend" icon="legend" text="Tegnforklaring"></calcite-action>
             <calcite-action data-action-id="bookmarks" icon="bookmark" text="Bokmerker"></calcite-action>
             <calcite-action data-action-id="print" icon="print" text="Utskrift"></calcite-action>
-            <calcite-action data-action-id="information" icon="information" text="Informasjon"></calcite-action>
+            <calcite-action data-action-id="chat" icon="speech-bubble" text="Spør kartet"></calcite-action>
           </calcite-action-bar>
   
           <!-- map-specific panels (each one provides a div for JS API widgets) -->
@@ -63,19 +64,34 @@
           </calcite-panel>
   
           <!-- info panel (populates with info from the web map) -->
-          <calcite-panel heading="Informasjon" data-panel-id="information" hidden>
-            <div id="info-content">
-              <img id="item-thumbnail" />
-              <div id="item-description">
-                <!--dynamically populated-->
-              </div>
-              <calcite-label layout="inline">
-                <b>Vurdering:</b>
-                <calcite-rating read-only>
-                  <!--dynamically populated-->
-                </calcite-rating>
-              </calcite-label>
-            </div>
+          <calcite-panel heading="Spør kartet" data-panel-id="chat">
+            <calcite-block heading="Tips og triks" summary="Klikk i listen for å se eksempler på bruk" open>
+              <calcite-icon slot="icon" icon="lightbulb"></calcite-icon>
+              <calcite-block-section text="Eksempler">
+                <calcite-list id="examples-list" selection-mode="single">
+                  <calcite-list-item label="Elbilladere" description="Elbilladere i Vestfold og Telemark" value="Finn alle elbilladere i Vestfold og Telemark">
+                    <calcite-action slot="actions-end" icon="search" text="Søk etter data"></calcite-action>
+                  </calcite-list-item>
+                  <calcite-list-item label="Bommer" description="Bommer som koster mer enn 21 kroner for små kjøretøy" value="Finn bommer som koster mer enn 21 kroner for små kjøretøy">
+                    <calcite-action slot="actions-end" icon="search" text="Søk etter data"></calcite-action>
+                  </calcite-list-item>
+                  <calcite-list-item label="Barnehager" description="Barnehager med færre enn fire barn per ansatt" value="Finn barnehager med færre enn fire barn per ansatt">
+                    <calcite-action slot="actions-end" icon="search" text="Søk etter data"></calcite-action>
+                  </calcite-list-item>
+                  <calcite-list-item label="Områder" description="Mange personer" value="Vis meg hvor det bor mange personer">
+                    <calcite-action slot="actions-end" icon="search" text="Søk etter data"></calcite-action>
+                  </calcite-list-item>
+                </calcite-list>
+              </calcite-block-section>
+            </calcite-block>
+            <div id="chat-results"></div>
+            <calcite-label>
+              Spør kartet
+              <calcite-text-area id="txt-query" class="panel-input" placeholder="Skriv inn ditt spørsmål"></calcite-text-area>
+            </calcite-label>
+            
+            <calcite-button id="btn-find-data" class="panel-input" icon-start="search"><calcite-loader id="search-loader" label="Adjusting polygons..." inline hidden></calcite-loader>Spør kartet</calcite-button>
+            <calcite-button id="btn-reset" class="panel-input" icon-start="trash" kind="danger">Start på nytt</calcite-button>
           </calcite-panel>
   
         </calcite-shell-panel>

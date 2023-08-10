@@ -19,6 +19,12 @@ calcite-loader {
 .flex-row {
   display: flex;
   flex-direction: row;
+  align-items: center;
+}
+
+#header-logo {
+  margin-left: 1rem;
+  height: 50px;
 }
 
 #header-title {
@@ -44,10 +50,6 @@ calcite-loader {
   cursor: pointer;
 }
 
-#info-content {
+.panel-input {
   padding: 0.75rem;
-}
-
-calcite-rating {
-  margin-top: 0.25rem;
 }
