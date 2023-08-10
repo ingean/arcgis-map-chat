@@ -3,7 +3,8 @@ import Portal from 'https://js.arcgis.com/4.27/@arcgis/core/portal/Portal.js'
 import OAuthInfo from 'https://js.arcgis.com/4.27/@arcgis/core/identity/OAuthInfo.js'
 import esriId from 'https://js.arcgis.com/4.27/@arcgis/core/identity/IdentityManager.js'
 
-const appId = 'xG2kkVesAXGRx5t1' // AppId for arcgis-calcite-template (Dev folder at geodata.maps.arcgis.com) 
+//const appId = 'xG2kkVesAXGRx5t1' // AppId for arcgis-calcite-template (Dev folder at geodata.maps.arcgis.com) 
+const appId = '8ZD3lHl0OrweVX6k'
 
 const info = new OAuthInfo({
   appId,
